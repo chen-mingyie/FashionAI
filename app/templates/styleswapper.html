@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Fashion.AI</title>
+    <meta name="description" content="In social media, the news articles choose you but in our app, you choose the news articles">
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="static/css/Footer-Basic.css">
+    <link rel="stylesheet" href="static/css/Navigation-Clean.css">
+    <link rel="stylesheet" href="static/css/Navigation-with-Button.css">
+    <link rel="stylesheet" href="static/css/styles.css">
+    <link rel="stylesheet" href="static/css/loader.css">
+
+    <script type="text/javascript" src="static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="static/js/loadingScreen.js"></script>
+    <script type="text/javascript" src="static/js/file_utilities.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
+        <div class="container"><img src="static/img/fashion-logo.png" width="50"><a class="navbar-brand" href="#">Fashion.AI</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div
+                class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav mr-auto">
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="/virtualtryon">Virtual Try-on</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active" onclick="showLoading('', 'mainform')" href="/styleswapper">Style Wrapper</a></li>
+                    <li class="nav-item dropdown" style="display: none;"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">Placeholder Dropdown </a>
+                        <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="#">First Item</a><a class="dropdown-item" role="presentation" href="#">Second Item</a><a class="dropdown-item" role="presentation" href="#">Third Item</a></div>
+                    </li>
+                </ul>
+                <span class="navbar-text actions">
+                    <a id="userEmail" style="margin-right: 10px;" class="userEmail" href="#">{{ userEmail }}</a>
+                    <a id="loginBtn" class="btn btn-light action-button" role="button" href="/login">
+                        <img id="loginIcon" width="18" height="18" src="static/img/login.png">
+                    </a>
+                </span>
+            </div>
+        </div>
+    </nav>
+    <div id="loadingScreen" style="display: none;">
+        <div id="loader">
+            <div>
+            <span class="loader">↓</span>
+            <span class="loader" style="--delay: 0.1s;">↓</span>
+            <span class="loader" style="--delay: 0.3s;">↓</span>
+            <span class="loader" style="--delay: 0.4s;">↓</span>
+            <span class="loader" style="--delay: 0.5s;">↓</span>
+	        </div>
+        </div>
+        <div id="loader-text">
+            <div><strong>Running ML Modules</strong></div>
+        </div>
+    </div>
+    <form action="/styleswapper" method="POST" enctype="multipart/form-data">
+        <div class="table-responsive" id="swapStyle" style="margin-top: 20px;">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th colspan="3">STYLE SWAP</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                          <div class="human-style-A">
+                            <label>Human in fashion style A</label><br>
+                            <input type="file" class="input-img" name="human-style-A" id="human-style-A" accept=".jpeg,.jpg,.png" onchange="getfilesize(this); previewimage(this);"><br>
+                            <img id="human-style-A-img" src={{human_style_A_img}} alt='human-style-A' width="96" height="128">
+                          </div>
+                        </td>
+                        <td>
+                            <label for="select-style-A">Choose Style A:</label>
+                            <select id="select-style-A">
+                              <option value="long-sleeve">Long Sleeve</option>
+                              <option value="shirt">Shirt</option>
+                            </select>
+                        </td>
+                        <td>
+                            <label for="select-style-B">Choose Style B:</label>
+                            <select id="select-style-B">
+                              <option value="long-sleeve">Long Sleeve</option>
+                              <option value="shirt">Shirt</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <button id="upload-btn" class="btn btn-primary" type="submit" style="float: left;margin-right: 5px;" name="upload-btn" value="upload-btn">Upload Image</button>
+                            <button id="swap-style-btn" class="btn btn-primary" type="submit" style="float: left;margin-right: 5px;" name="swap-style-btn" value="swap-style-btn">Swap Style</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <label>Fashion styles swapped</label><br>
+                            <img src={{human_style_B_img}} alt='human-style-B' width="96" height="128">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+    <div class="footer-basic">
+        <footer>
+            <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-facebook"></i></a></div>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="#">Home</a></li>
+                <li class="list-inline-item"><a href="#">Services</a></li>
+                <li class="list-inline-item"><a href="#">About</a></li>
+                <li class="list-inline-item"><a href="#">Terms</a></li>
+                <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+            </ul>
+            <p class="copyright">Fashion.AI © 2020<</p>
+        </footer>
+    </div>
+    <script src="static/js/jquery.min.js"></script>
+    <script src="static/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>
