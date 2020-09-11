@@ -1,1 +1,1 @@
-web: gunicorn newscurator:app --timeout 120
+web: gunicorn fashionai:app --timeout 120

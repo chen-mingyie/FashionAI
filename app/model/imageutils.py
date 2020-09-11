@@ -41,7 +41,7 @@ def get_tryon_images() -> []:
     images.append(Image.open(imgfolder + 'article-B.jpg'))
     return images
 
-def get_styleswap_images() :
+def get_styleswap_image() :
     imgfolder = 'app/static/img/'
     image = Image.open(imgfolder + 'human-style-A.jpg')
     return image
