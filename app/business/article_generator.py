@@ -5,7 +5,7 @@ import numpy as np
 
 class articleGenerator():
     def __init__(self):
-        self.model = load_model("app/business/RGB_asy_generator_549.h5")
+        self.model = load_model("app/business/RGB_asy_generator_249.h5")
 
     def generate_latent_points(self, latent_dim: int, n_samples: int):
         # generate points in the latent space

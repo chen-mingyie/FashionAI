@@ -1,3 +1,4 @@
+import tensorflow as tf
 from flask import Flask
 # from flask_sqlalchemy import SQLAlchemy
 from config import Config
@@ -12,6 +13,8 @@ app.config["MAX_IMAGE_FILESIZE"] = 0.5 * 1024 * 1024
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@localhost/news_curator'
 # db = SQLAlchemy(app)
 
-
+# To allow tensorflow on GPU
+physical_devices = tf.config.list_physical_devices('GPU')
+if len(physical_devices) > 0: tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
 from app import routes
