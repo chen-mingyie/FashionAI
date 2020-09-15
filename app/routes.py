@@ -11,7 +11,8 @@ articleGenerator = articleGenerator()
 def virtualtryon():
     nbrToGen = 8
     if 'generate-btn' in request.values:
-        articleGenerator.generateImages(nbrToGen)
+        styleToGen = request.values['style-gen']
+        articleGenerator.generateImages(nbrToGen, styleToGen)
     generated = ['/static/img/generated/' + str(i) + '.jpg?' + str(randint(0, 9999)) for i in range(nbrToGen)]
 
     if 'upload-btn' in request.values:
