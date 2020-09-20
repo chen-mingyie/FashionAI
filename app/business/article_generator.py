@@ -9,9 +9,11 @@ class articleGenerator():
         # self.model = load_model("app/business/RGB_asy_generator_249.h5")
 
         # Load the TFLite model and allocate tensors.
-        self.itpr_women = tf.lite.Interpreter(model_path='app/business/RGB_asy_generator_249.tflite')
-        self.itpr_women.allocate_tensors()
-        self.itpr_men = tf.lite.Interpreter(model_path='app/business/zalando_asy_generator_best1.tflite')
+        self.itpr_women_A = tf.lite.Interpreter(model_path='app/business/RGB_asy_generator_549.tflite')
+        self.itpr_women_A.allocate_tensors()
+        self.itpr_women_B = tf.lite.Interpreter(model_path='app/business/zalando-wms-wgb_asy_deep_generator_1599.tflite')
+        self.itpr_women_B.allocate_tensors()
+        self.itpr_men = tf.lite.Interpreter(model_path='app/business/zalando-wbg_asy_deep_generator_1049.tflite')
         self.itpr_men.allocate_tensors()
 
     def generate_latent_points(self, latent_dim: int, n_samples: int):
@@ -23,15 +25,20 @@ class articleGenerator():
 
     def generateImages(self, nbrToGen: int=8, style: str='women-style-A') -> []:
         # Get input and output tensors.
-        intepreter = self.itpr_women if 'women' in style else self.itpr_men
+        if style == 'women-style-A':
+            intepreter = self.itpr_women_A
+        elif style == 'women-style-B':
+            intepreter = self.itpr_women_B
+        else:
+            intepreter = self.itpr_men
+        input_details = intepreter.get_input_details()
+        output_details = intepreter.get_output_details()
+        latentpts = input_details[0]['shape'][1]
 
         images = []
         for i in range(nbrToGen):
-            input_details = intepreter.get_input_details()
-            output_details = intepreter.get_output_details()
-
             # Test the model on random input data.
-            input_data = self.generate_latent_points(200, 1).astype(np.float32)
+            input_data = self.generate_latent_points(latentpts, 1).astype(np.float32)
             intepreter.set_tensor(input_details[0]['index'], input_data)
 
             intepreter.invoke()
@@ -39,9 +46,9 @@ class articleGenerator():
             # The function `get_tensor()` returns a copy of the tensor data.
             # Use `tensor()` in order to get a pointer to the tensor.
             output_data = intepreter.get_tensor(output_details[0]['index'])
-            if style == 'women-style-B':
-                output_half1 = output_data[:, :, 0:int(output_data.shape[2] / 2), :]
-                output_data = np.concatenate((output_half1, np.flip(output_half1, axis=2)), axis=2)
+            # if style == 'women-style-B':
+            #     output_half1 = output_data[:, :, 0:int(output_data.shape[2] / 2), :]
+            #     output_data = np.concatenate((output_half1, np.flip(output_half1, axis=2)), axis=2)
             img_array = (output_data[0] * 127.5) + 127.5
             img = Image.fromarray(img_array.astype(np.uint8), 'RGB')
             images.append(img)
