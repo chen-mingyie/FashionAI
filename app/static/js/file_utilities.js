@@ -48,3 +48,10 @@ function previewimage(input)
     }
     return true;
 }
+
+function storestyle(elem)
+{
+    console.log('stored generator style');
+    localStorage.setItem('style-gen', elem.value);
+    return true;
+}

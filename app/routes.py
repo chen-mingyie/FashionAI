@@ -2,15 +2,18 @@ from random import randint
 from app import app
 from flask import request, Markup, render_template, jsonify, redirect
 from app.model.imageutils import save_image, get_tryon_images, get_styleswap_image
+from app.business.article_generator import articleGenerator
+
+articleGenerator = articleGenerator()
 
 @app.route("/")
 @app.route("/virtualtryon", methods=["GET", "POST"])
 def virtualtryon():
+    nbrToGen = 8
     if 'generate-btn' in request.values:
-        a = 1
-        # code to generate fashion article. Store image in '/static/img/0.jpg'
-    # generated = []
-    generated = ['/static/img/generated/' + str(i) + '.jpg?' + str(randint(0, 9999)) for i in range(8)]
+        styleToGen = request.values['style-gen']
+        articleGenerator.generateImages(nbrToGen, styleToGen)
+    generated = ['/static/img/generated/' + str(i) + '.jpg?' + str(randint(0, 9999)) for i in range(nbrToGen)]
 
     if 'upload-btn' in request.values:
         # images are save in /static/img/. Filenames are 'human-article-A.jpg', 'article-A.jpg', and 'article-B.jpg'
@@ -22,7 +25,7 @@ def virtualtryon():
     if 'swap-article-btn' in request.values:
         # code to swap fashion article. Store image in '/static/img/human-article-B.jpg'
         input_img = get_tryon_images()
-    human_in_B = 'static/img/human-article-B.jpg?' + str(randint(0,9999))
+    human_in_B = 'static/img/human-article-B.jpg?' + str(randint(0, 9999))
 
     return render_template("virtualtryon.html", generated0_img=generated[0], generated1_img=generated[1],
                            generated2_img=generated[2], generated3_img=generated[3], generated4_img=generated[4],
@@ -41,7 +44,7 @@ def styleswapper():
         style_A = request.values['style-A']
         style_B = request.values['style-B']
         input_img = get_styleswap_image()
-    human_in_B = 'static/img/human-style-B.jpg?' + str(randint(0,9999))
+    human_in_B = 'static/img/human-style-B.jpg?' + str(randint(0, 9999))
 
     return render_template("styleswapper.html", human_style_A_img=human_in_A, human_style_B_img=human_in_B)
 

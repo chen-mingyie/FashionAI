@@ -49,6 +49,17 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <td colspan="8">
+                            <label for="select-style-gen">Choose Style Generated:</label>
+                            <select id="select-style-gen" name="style-gen" onchange="return storestyle(this);">
+                              <option value="women-style-A">Women's Tops</option>
+                              <option value="women-style-B">Women's Dress</option>
+                              <option value="men-style">Men's Tops</option>
+                            </select><br>
+                            <button id="generate-btn" class="btn btn-primary" type="submit" style="float: left;margin-right: 5px;" name="generate-btn" value="generate-btn">Generate</button>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>
                             <label>Generated 0</label><br>
                             <img src={{generated0_img}} alt='generated' width="96" height="128">
@@ -81,11 +92,6 @@
                             <label>Generated 7</label><br>
                             <img src={{generated7_img}} alt='generated7' width="96" height="128">
                         </td>
-                <tr>
-                    <td>
-                        <button id="generate-btn" class="btn btn-primary" type="submit" style="float: left;margin-right: 5px;" name="generate-btn" value="generate-btn">Generate</button>
-                    </td>
-                </tr>
                 </tbody>
             </table>
         </div>
@@ -153,6 +159,11 @@
     <script src="static/bootstrap/js/bootstrap.min.js"></script>
     <script>
         toggleLoginIcon();
+
+        if (localStorage.getItem('style-gen')) {
+            styleGen = localStorage.getItem('style-gen');
+            document.getElementById('select-style-gen').value = styleGen;
+        }
     </script>
 </body>
 
