@@ -3,8 +3,10 @@ from app import app
 from flask import request, Markup, render_template, jsonify, redirect
 from app.model.imageutils import save_image, get_tryon_images, get_styleswap_image
 from app.business.article_generator import articleGenerator
+from app.business.virtual_tryon import viton
 
 articleGenerator = articleGenerator()
+viton = viton()
 
 @app.route("/")
 @app.route("/virtualtryon", methods=["GET", "POST"])
@@ -23,9 +25,11 @@ def virtualtryon():
     article_B = '/static/img/article-B.jpg?' + str(randint(0, 9999))
 
     if 'swap-article-btn' in request.values:
+        viton.generate_new_image()
         # code to swap fashion article. Store image in '/static/img/human-article-B.jpg'
         input_img = get_tryon_images()
-    human_in_B = 'static/img/human-article-B.jpg?' + str(randint(0, 9999))
+
+    human_in_B = 'static/img/generated/human-article-B.jpg?' + str(randint(0, 9999))
 
     return render_template("virtualtryon.html", generated0_img=generated[0], generated1_img=generated[1],
                            generated2_img=generated[2], generated3_img=generated[3], generated4_img=generated[4],
