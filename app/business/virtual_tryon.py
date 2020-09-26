@@ -5,7 +5,7 @@ import numpy as np
 from app.business.instance_normalization import InstanceNormalization
 from random import randint
 import cv2
-from tensorflow.python.keras.backend import set_session
+# from tensorflow.python.keras.backend import set_session
 
 class viton():
 
