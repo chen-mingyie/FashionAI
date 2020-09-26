@@ -1,18 +1,35 @@
-from keras.models import load_model
+from tensorflow.keras.models import load_model
 import tensorflow as tf
 from PIL import Image
 import numpy as np
 from app.business.instance_normalization import InstanceNormalization
 from random import randint
+import cv2
 from tensorflow.python.keras.backend import set_session
 
 class viton():
 
     def __init__(self):
-        self.sess = tf.Session()
-        self.graph = tf.get_default_graph()
-        set_session(self.sess)
-        self.gen_model = load_model("app/business/generator.h5",custom_objects={'InstanceNormalization':InstanceNormalization})
+        # self.sess = tf.Session()
+        # self.graph = tf.get_default_graph()
+        # set_session(self.sess)
+
+        # if using .h5 ---------------------------------------------------------------------------------------
+        # self.gen_model = load_model("app/business/viton_cagan_chandran_generator.h5",
+        #                             custom_objects={'InstanceNormalization':InstanceNormalization})
+        # # temp codes to convert from .h5 to .tflite
+        # converter = tf.lite.TFLiteConverter.from_keras_model(self.gen_model)
+        # converter.optimizations = [tf.lite.Optimize.OPTIMIZE_FOR_SIZE]
+        # tflite_model = converter.convert()
+        # file = open('app/business/viton_cagan_chandran_generator.tflite' , 'wb')
+        # file.write( tflite_model )
+        # ----------------------------------------------------------------------------------------------------
+
+        # if using .tflite -----------------------------------------------------------------------------------
+        self.gen_model = tf.lite.Interpreter(model_path='app/business/viton_cagan_chandran_generator.tflite')
+        self.gen_model.allocate_tensors()
+        # ----------------------------------------------------------------------------------------------------
+
         self.isRGB = True
         self.apply_da = True
         self.channel_first = False
@@ -36,13 +53,14 @@ class viton():
     def read_image(self):
         input_size = (111,148)
         cropped_size = (96,128)
-       
+
+        x_i = "app/static/img/human-article-A.jpg"
         if self.isRGB:
         # Load human picture
-            im = Image.open("app/static/img/human-article-A.jpg").convert('RGB')
+            im = Image.open(x_i).convert('RGB')
             im = im.resize( input_size, Image.BILINEAR )    
         else:
-            im = cv2.imread(fn)
+            im = cv2.imread(x_i)
             im = cv2.cvtColor(im, cv2.COLOR_BGR2LAB)
             im = cv2.resize(im, input_size, interpolation=cv2.INTER_CUBIC)
         if self.apply_da is True:
@@ -97,12 +115,26 @@ class viton():
         image_cloth = img[:,:,:,3:6]
         target_cloth = img[:,:,:,6:]
         fake_image=[]
-        global graph
-        global sess
-        set_session(self.sess)
-        with self.graph.as_default():
-            fake_image = self.gen_model.predict(img)
-            print(fake_image.shape)
+
+        # global graph
+        # global sess
+        # set_session(self.sess)
+        # with self.graph.as_default():
+        #     fake_image = self.gen_model.predict(img)
+        #     print(fake_image.shape)
+
+        # if using .tflite -------------------------------------------------
+        input_details = self.gen_model.get_input_details()
+        output_details = self.gen_model.get_output_details()
+        self.gen_model.set_tensor(input_details[0]['index'], img)
+        self.gen_model.invoke()
+        fake_image = self.gen_model.get_tensor(output_details[0]['index'])
+        # ------------------------------------------------------------------
+
+        # if using .h5 -----------------------------------------------------
+        # fake_image = self.gen_model(img).numpy()
+        # ------------------------------------------------------------------
+
         fake_image_alpha = fake_image[:,:,:,0:1]
         fake_image_model = fake_image[:,:,:,1:]
         fake_image_output = fake_image_alpha*fake_image_model + (1-fake_image_alpha)*image_model
