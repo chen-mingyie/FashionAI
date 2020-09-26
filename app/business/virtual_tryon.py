@@ -141,4 +141,4 @@ class viton():
         print(fake_image_output.shape)
         img_array = (fake_image_output[0] * 127.5) + 127.5
         final_image = Image.fromarray(img_array.astype(np.uint8), 'RGB')
-        final_image.save('app/static/img/generated/human-article-B.jpg')
+        final_image.save('app/static/img/human-article-B.jpg')

@@ -29,7 +29,7 @@ def virtualtryon():
         # code to swap fashion article. Store image in '/static/img/human-article-B.jpg'
         input_img = get_tryon_images()
 
-    human_in_B = 'static/img/generated/human-article-B.jpg?' + str(randint(0, 9999))
+    human_in_B = 'static/img/human-article-B.jpg?' + str(randint(0, 9999))
 
     return render_template("virtualtryon.html", generated0_img=generated[0], generated1_img=generated[1],
                            generated2_img=generated[2], generated3_img=generated[3], generated4_img=generated[4],
