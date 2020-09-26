@@ -4,7 +4,7 @@ from PIL import Image
 import numpy as np
 from app.business.instance_normalization import InstanceNormalization
 from random import randint
-import cv2
+# import cv2
 # from tensorflow.python.keras.backend import set_session
 
 class viton():
@@ -60,9 +60,10 @@ class viton():
             im = Image.open(x_i).convert('RGB')
             im = im.resize( input_size, Image.BILINEAR )    
         else:
-            im = cv2.imread(x_i)
-            im = cv2.cvtColor(im, cv2.COLOR_BGR2LAB)
-            im = cv2.resize(im, input_size, interpolation=cv2.INTER_CUBIC)
+            print('error')
+            # im = cv2.imread(x_i)
+            # im = cv2.cvtColor(im, cv2.COLOR_BGR2LAB)
+            # im = cv2.resize(im, input_size, interpolation=cv2.INTER_CUBIC)
         if self.apply_da is True:
             im = self.crop_img(im, input_size, cropped_size)
         arr = np.array(im)/255*2-1
@@ -76,9 +77,10 @@ class viton():
             im = Image.open(y_i).convert('RGB')
             im = im.resize(cropped_size, Image.BILINEAR )    
         else:
-            im = cv2.imread(y_i)
-            im = cv2.cvtColor(im, cv2.COLOR_BGR2LAB)
-            im = cv2.resize(im, cropped_size, interpolation=cv2.INTER_CUBIC)
+            print('error')
+            # im = cv2.imread(y_i)
+            # im = cv2.cvtColor(im, cv2.COLOR_BGR2LAB)
+            # im = cv2.resize(im, cropped_size, interpolation=cv2.INTER_CUBIC)
         arr = np.array(im)/255*2-1
         img_y_i = arr
         if self.channel_first:        
@@ -89,9 +91,10 @@ class viton():
             im = Image.open("app/static/img/article-B.jpg").convert('RGB')
             im = im.resize( cropped_size, Image.BILINEAR )
         else:
-            im = cv2.imread("app/static/img/article-B.jpg")
-            im = cv2.cvtColor(im, cv2.COLOR_BGR2LAB)
-            im = cv2.resize(im, cropped_size, interpolation=cv2.INTER_CUBIC)
+            print('error')
+            # im = cv2.imread("app/static/img/article-B.jpg")
+            # im = cv2.cvtColor(im, cv2.COLOR_BGR2LAB)
+            # im = cv2.resize(im, cropped_size, interpolation=cv2.INTER_CUBIC)
         arr = np.array(im)/255*2-1
         img_y_j = arr
         if randint(0,1): 
