@@ -4,7 +4,7 @@ from flask import request, Markup, render_template, jsonify, redirect
 from app.model.imageutils import save_image, get_tryon_images, get_styleswap_image
 from app.business.article_generator import articleGenerator
 from app.cyclegan import *
-from app.cyclegan.inference import inference
+from app.cyclegan.inference import inference as style_swapper
 
 articleGenerator = articleGenerator()
 
@@ -48,7 +48,7 @@ def styleswapper():
         style_B = request.values['style-B']
         print(style_B)
         input_img = get_styleswap_image()
-        inference(style_B)
+        style_swapper(style_B)
     human_in_B = 'static/img/human-style-B.jpg?' + str(randint(0, 9999))
 
     return render_template("styleswapper.html", human_style_A_img=human_in_A, human_style_B_img=human_in_B)

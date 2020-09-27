@@ -87,12 +87,13 @@ class viton():
             img_y_i = np.moveaxis(img_y_i, 2, 0)
         
         # Load article picture y_j randomly
+        y_j = "app/static/img/article-B.jpg"
         if self.isRGB:
-            im = Image.open("app/static/img/article-B.jpg").convert('RGB')
+            im = Image.open(y_j).convert('RGB')
             im = im.resize( cropped_size, Image.BILINEAR )
         else:
             print('error')
-            # im = cv2.imread("app/static/img/article-B.jpg")
+            # im = cv2.imread(y_j)
             # im = cv2.cvtColor(im, cv2.COLOR_BGR2LAB)
             # im = cv2.resize(im, cropped_size, interpolation=cv2.INTER_CUBIC)
         arr = np.array(im)/255*2-1

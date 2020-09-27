@@ -51,7 +51,7 @@ function previewimage(input)
 
 function storestyle(elem)
 {
-    console.log('stored generator style');
-    localStorage.setItem('style-gen', elem.value);
+    console.log(elem);
+    localStorage.setItem(elem.name, elem.value);
     return true;
 }

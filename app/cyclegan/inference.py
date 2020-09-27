@@ -8,8 +8,8 @@ python export_graph.py --model pretrained/apple2orange.pb \
 
 import tensorflow as tf
 
-config = tf.compat.v1.ConfigProto(gpu_options=tf.compat.v1.GPUOptions(allow_growth=True))
-sess = tf.compat.v1.Session(config=config)
+# config = tf.compat.v1.ConfigProto(gpu_options=tf.compat.v1.GPUOptions(allow_growth=True))
+# sess = tf.compat.v1.Session(config=config)
 
 
 FLAGS = tf.compat.v1.flags.FLAGS
@@ -62,8 +62,8 @@ def inference(target_domain):
     with open(FLAGS.output, 'wb') as f:
       f.write(generated)
 
-def main(unused_argv):
-  inference()
-
-if __name__ == '__main__':
-  tf.app.run()
+# def main(unused_argv):
+#   inference()
+#
+# if __name__ == '__main__':
+#   tf.app.run()
