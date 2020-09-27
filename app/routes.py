@@ -3,10 +3,10 @@ from app import app
 from flask import request, Markup, render_template, jsonify, redirect
 from app.model.imageutils import save_image, get_tryon_images, get_styleswap_image
 from app.business.article_generator import articleGenerator
-from app.business.virtual_tryon import viton
+from app.cyclegan import *
+from app.cyclegan.inference import inference
 
 articleGenerator = articleGenerator()
-viton = viton()
 
 @app.route("/")
 @app.route("/virtualtryon", methods=["GET", "POST"])
@@ -25,10 +25,8 @@ def virtualtryon():
     article_B = '/static/img/article-B.jpg?' + str(randint(0, 9999))
 
     if 'swap-article-btn' in request.values:
-        viton.generate_new_image()
         # code to swap fashion article. Store image in '/static/img/human-article-B.jpg'
         input_img = get_tryon_images()
-
     human_in_B = 'static/img/human-article-B.jpg?' + str(randint(0, 9999))
 
     return render_template("virtualtryon.html", generated0_img=generated[0], generated1_img=generated[1],
@@ -46,8 +44,11 @@ def styleswapper():
     if 'swap-style-btn' in request.values:
         # code to swap fashion styles. Store image in '/static/img/human-style-B.jpg'
         style_A = request.values['style-A']
+        print(style_A)
         style_B = request.values['style-B']
+        print(style_B)
         input_img = get_styleswap_image()
+        inference(style_B)
     human_in_B = 'static/img/human-style-B.jpg?' + str(randint(0, 9999))
 
     return render_template("styleswapper.html", human_style_A_img=human_in_A, human_style_B_img=human_in_B)
