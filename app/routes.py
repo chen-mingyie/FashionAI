@@ -4,10 +4,11 @@ from flask import request, Markup, render_template, jsonify, redirect
 from app.model.imageutils import save_image, get_tryon_images, get_styleswap_image
 from app.business.article_generator import articleGenerator
 from app.business.virtual_tryon import viton
-from app.cyclegan.inference import inference as style_swapper
+from app.cyclegan.cyclegan_styleswapper import cyclegan_styleswapper
 
 articleGenerator = articleGenerator()
 viton = viton()
+cyclegan_styleswapper = cyclegan_styleswapper()
 
 @app.route("/")
 @app.route("/virtualtryon", methods=["GET", "POST"])
@@ -50,7 +51,7 @@ def styleswapper():
         style_B = request.values['style-B']
         print(style_B)
         input_img = get_styleswap_image()
-        style_swapper(style_B)
+        cyclegan_styleswapper.swapstyle(style_B)
     human_in_B = 'static/img/human-style-B.jpg?' + str(randint(0, 9999))
 
     return render_template("styleswapper.html", human_style_A_img=human_in_A, human_style_B_img=human_in_B)
