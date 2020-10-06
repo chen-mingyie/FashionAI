@@ -27,11 +27,11 @@ To demonstrate our ideas, we had overlaid the three models with an easy to use w
 
 ---
 
-## SECTION 4 : VIDEO OF SYSTEM MODELLING & USE CASE DEMO
+## SECTION 4 : VIDEO OF FINAL PRESENTATION
 
 Link to final presentation video TBC
 
-## SECTION 5 : USER GUIDE & Installation Guide 
+## SECTION 5 : USER GUIDE & INSTALLATION GUIDE
 
 Included in Project Report
 
