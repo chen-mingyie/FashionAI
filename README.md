@@ -19,11 +19,11 @@ To demonstrate our ideas, we had overlaid the three models with an easy to use w
 
 ## SECTION 3 : CREDITS / PROJECT CONTRIBUTION
 
-| Official Full Name  | Student ID | Work Items (Who Did What) | Email (Optional) |
+| Full Name  | Student ID | Who Did What | Email |
 | :------------ |:---------------:| :-----| :-----|
-| Chen Mingyi Edmund | A1234567Z | TBC | e0535232@u.nus.edu |
-| Viswanathan Chandrashekar | A1234567Z | TBC | e0535243@u.nus.edu|
-| Cheng Yunfeng | A1234567Z | TBC | e0535410@u.nus.edu|
+| Chen Mingyi Edmund | A0031105E | TBC | e0535232@u.nus.edu |
+| Viswanathan Chandrashekar | A0088591N | TBC | e0535243@u.nus.edu|
+| Cheng Yunfeng | A0215320Y | TBC | e0535410@u.nus.edu|
 
 ---
 
@@ -43,7 +43,7 @@ We have deployed our application for easy access at URL   https://prpm-ay2021-fa
 
 1.	This installation instruction is written on a Windows 10 OS.
 2.	Download and install Anaconda Navigator via the   https://www.anaconda.com/products/individual
-3.	Open Anaconda Navigator at start the Anaconda Prompt. The command prompt should display a “(base)”, this shows that you are using the base venv.
+3.	Open Anaconda Navigator and start the Anaconda Prompt. The command prompt should display a “(base)”, this shows that you are using the base venv.
 4.	The demo requires the following packages, do a pip install of them to the base venv if they are not already installed:
     *	Flask==1.1.2
     *	Flask-SQLAlchemy==2.4.4
