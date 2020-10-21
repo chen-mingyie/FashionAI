@@ -21,9 +21,9 @@ To demonstrate our ideas, we had overlaid the three models with an easy to use w
 
 | Full Name  | Student ID | Who Did What | Email |
 | :------------ |:---------------:| :-----| :-----|
-| Chen Mingyi Edmund | A0031105E | TBC | e0535232@u.nus.edu |
-| Viswanathan Chandrashekar | A0088591N | TBC | e0535243@u.nus.edu|
-| Cheng Yunfeng | A0215320Y | TBC | e0535410@u.nus.edu|
+| Chen Mingyi Edmund | A0031105E | Fashion Article Generator track (GAN Model) | e0535232@u.nus.edu |
+| Viswanathan Chandrashekar | A0088591N | Virtual Try On track (CAGAN Model) | e0535243@u.nus.edu|
+| Cheng Yunfeng | A0215320Y | Style-swapper track (Cycle GAN Model) | e0535410@u.nus.edu|
 
 ---
 
