@@ -29,7 +29,7 @@ To demonstrate our ideas, we had overlaid the three models with an easy to use w
 
 ## SECTION 4 : VIDEO OF FINAL PRESENTATION
 
-<a href="ProjectReport/Group11_Pattern Recognition PM_Final Presentation.v6.1.zip">Video Presentation in .pptx (.mp4 version uploaded in Luminus)</a>
+<a href="ProjectReport/Group11_Pattern Recognition PM_Final Presentation.v6.1.mp4">Video Presentation in .pptx (.mp4 version uploaded in Luminus)</a>
 
 ## SECTION 5 : USER GUIDE & INSTALLATION GUIDE
 
